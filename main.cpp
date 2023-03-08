@@ -1,9 +1,20 @@
+
 #include <vector>
 #include <cmath>
 #include <QApplication>
 #include <QPushButton>
 #include <QVector>
 #include "qcustomplot.h"
+
+/* Задача №1.
+ * Построить расчетную зависимость разностей фаз для двух антенных элементов заданных в трехмерной
+ * декартовой системе координат:
+ * x,м   y,м   z,м
+ * 0.12  0.91  -0.23
+ * 0.58  -0.12    0
+ * В зависимости от горизонтального угла, отсчитываемого относительно оси Х,
+ * против часовой стрелки от 0 до 360 градусов. Для частоты 265 МГц.Оценить количество неоднозначностей.
+ */
 
 int main(int argc, char **argv)
 {
@@ -42,7 +53,7 @@ int main(int argc, char **argv)
     for(int i=0;i<psiRad.size();i++)
             psiRad[i]=psi[i]*M_PI/180;
 
-
+    // Воспользуемся формулой полученной на лекции:
     for(int i=0;i<differencePhase.size();i++)
        differencePhase[i]=(2*M_PI/l)*cos(45*M_PI/180)*(newCoordFirstEl[0]*cos(psiRad[i])-newCoordFirstEl[1]*sin(psiRad[i])+newCoordFirstEl[2]*tan(45*M_PI/180));
 
