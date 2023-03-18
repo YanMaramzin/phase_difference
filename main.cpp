@@ -35,7 +35,7 @@ int main(int argc, char **argv)
     int freq=265e6;
     int maxYgol=360;
     int c=3e8;
-    double step=0.1;
+    double step=1;
     double l=double(c/freq);
 
     psi.push_back(step);
@@ -57,8 +57,19 @@ int main(int argc, char **argv)
     for(int i=0;i<differencePhase.size();i++)
        differencePhase[i]=(2*M_PI/l)*cos(45*M_PI/180)*(newCoordFirstEl[0]*cos(psiRad[i])-newCoordFirstEl[1]*sin(psiRad[i])+newCoordFirstEl[2]*tan(45*M_PI/180));
 
+    std::vector<double> differencePhase1(differencePhase.size());
+    for(int i=0;i<differencePhase.size();i++)
+    {
+        if(differencePhase[i]>M_PI)
+           differencePhase1[i]=differencePhase[i]-2*M_PI;
+        else if(differencePhase[i]>M_PI)
+           differencePhase1[i]=differencePhase[i]+2*M_PI;
+        else
+            differencePhase1[i]=differencePhase[i];
+    }
+
     QVector<double> qPsi=QVector<double>(psi.begin(), psi.end());
-    QVector<double> qDiffPhase=QVector<double>(differencePhase.begin(), differencePhase.end());
+    QVector<double> qDiffPhase=QVector<double>(differencePhase1.begin(), differencePhase1.end());
 
     graph->addGraph();
     graph->graph(0)->setData(qPsi,qDiffPhase);
